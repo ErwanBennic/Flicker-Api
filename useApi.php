@@ -9,6 +9,6 @@ if ( isset( $_POST['keyword'])) {
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents);
-    var_dump($obj->photos);
+    var_dump($obj->photos->photo);
 }
 ?>
