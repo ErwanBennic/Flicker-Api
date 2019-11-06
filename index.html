@@ -7,17 +7,45 @@
     <title>Search Flicker</title>
 </head>
 <body>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Flickr Search API</h1>
+        <p class="lead">Projet en lien avec l'utilisation de l'API Flickr.</p>
+    </div>
+</div>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col">
+    <div class="row justify-content-center pt-4">
+        <div class="col-8">
+            <h1 class="display-4">Formulaire</h1>
             <form action="useApi.php" method="post" class="form-example">
-                <div class="field">
-                    <label for="keyword">Entrez un mot clé : </label>
-                    <input type="text" name="keyword" id="keyword" required>
+                <div class="form-group pt-4">
+                    <input type="text" class="form-control" id="keyword" name="keyword" aria-describedby="emailHelp"
+                           placeholder="Entrez un mot clé">
                 </div>
-                <div class="submit">
-                    <input type="submit" value="Search !">
+                <div class="form-group pt-4">
+                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Taille de l'image</option>
+                        <option value="small">Petite (inférieure à 520px)</option>
+                        <option value="medium">Moyenne (inférieure à 1200px)</option>
+                        <option value="big">Grande (plus de 1200px)</option>
+                    </select>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                           value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Safe search
+                    </label>
+                </div>
+                <div class="form-check pt-2">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                           value="option1">
+                    <label class="form-check-label" for="exampleRadios1">
+                        NSFW search
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4">Search !</button>
             </form>
         </div>
     </div>

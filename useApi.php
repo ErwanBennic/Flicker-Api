@@ -1,5 +1,13 @@
 <?php
 ini_set("allow_url_fopen", 1);
+$keyword = "";
+$results = [];
+$i = 0;
+$farm = [];
+$server = [];
+$id = [];
+$secret = [];
+$key = 1;
 
 if ( isset( $_POST['keyword'])) {
     $keyword = $_POST['keyword'];
@@ -9,13 +17,6 @@ if ( isset( $_POST['keyword'])) {
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents);
-
-    $i = 0;
-    $farm = [];
-    $server = [];
-    $id = [];
-    $secret = [];
-    $key = 1;
 
     while ($key < 50) {
         $results[$key]["farm"] = $obj->photos->photo[$key]->farm;
