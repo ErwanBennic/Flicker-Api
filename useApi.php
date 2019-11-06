@@ -9,14 +9,15 @@ if ( isset( $_POST['keyword'])) {
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents);
+
+    $i = 0;
+    $id = [];
+    while ($i < 50) {
+        array_push($id, $obj->photos->photo[$i]->id);
+        $i++;
+    }
+    https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 }
 
-$i = 0;
-while ($i < 50)
-    $results = "";
-$results += $obj->photos->photo[$i]->id;
-$results += " ";
-$i++;
-
-echo $results;
+var_dump($id);
 ?>
