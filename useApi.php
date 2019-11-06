@@ -5,10 +5,18 @@ if ( isset( $_POST['keyword'])) {
     $keyword = $_POST['keyword'];
     echo $keyword;
     echo "<br>";
-    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=08a1a1fb2786ca00e3801c9048e262e9&tags='.$keyword.'&safe_search=3&format=json&nojsoncallback=1';
+    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=28984d098e9946c2c42b87eac57a678b&tags='.$keyword.'&format=json&nojsoncallback=1';
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents);
-    var_dump($obj->photos->photo);
 }
+
+$i = 0;
+while ($i < 50)
+    $results = "";
+$results += $obj->photos->photo[$i]->id;
+$results += " ";
+$i++;
+
+echo $results;
 ?>
