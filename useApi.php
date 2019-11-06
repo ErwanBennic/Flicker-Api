@@ -11,13 +11,18 @@ if ( isset( $_POST['keyword'])) {
     $obj = json_decode($contents);
 
     $i = 0;
+    $farm_id = [];
+    $server_id = [];
     $id = [];
+    $secret = [];
+
+    $results = [];
     while ($i < 50) {
-        array_push($id, $obj->photos->photo[$i]->id);
+        array_push($results, $obj->photos->photo[$i]->farm, $obj->photos->photo[$i]->server,
+            $obj->photos->photo[$i]->id, $obj->photos->photo[$i]->secret);
         $i++;
     }
-    https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 }
 
-var_dump($id);
+var_dump($results);
 ?>

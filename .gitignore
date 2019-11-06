@@ -1,6 +1,6 @@
-
 *.xml
 *.iml
-*.xml
 *vendor
 composer.*
+workspace.xml
+.idea/workspace.xml
