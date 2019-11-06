@@ -11,16 +11,18 @@ if ( isset( $_POST['keyword'])) {
     $obj = json_decode($contents);
 
     $i = 0;
-    $farm_id = [];
-    $server_id = [];
+    $farm = [];
+    $server = [];
     $id = [];
     $secret = [];
+    $key = 1;
 
-    $results = [];
-    while ($i < 50) {
-        array_push($results, $obj->photos->photo[$i]->farm, $obj->photos->photo[$i]->server,
-            $obj->photos->photo[$i]->id, $obj->photos->photo[$i]->secret);
-        $i++;
+    while ($key < 50) {
+        $results[$key]["farm"] = $obj->photos->photo[$key]->farm;
+        $results[$key]["server"] = $obj->photos->photo[$key]->server;
+        $results[$key]["id"] = $obj->photos->photo[$key]->id;
+        $results[$key]["secret"] = $obj->photos->photo[$key]->secret;
+        $key++;
     }
 }
 
