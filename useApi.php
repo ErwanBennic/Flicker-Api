@@ -14,8 +14,8 @@ if ( isset( $_POST['keyword'])) {
     echo "Recherche pour \"$keyword\".";
     echo "<br>";
     /* Echappement des espaces pour éviter les erreurs php lors de la requête  */
-    $keywordTrm = str_replace(' ', '', $keyword);
-    $in_galleryTrm = str_replace(' ', '', $in_gallery);
+    $keywordTrm = str_replace(' ', '%20', $keyword);
+    $in_galleryTrm = str_replace(' ', '%20', $in_gallery);
     /* Url */
     $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2577250b047535e7b6bb994febaab53&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1';
     $contents = file_get_contents($json);
