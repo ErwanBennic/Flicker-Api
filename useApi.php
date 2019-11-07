@@ -17,7 +17,7 @@ if ( isset( $_POST['keyword'])) {
     $keywordTrm = str_replace(' ', '', $keyword);
     $in_galleryTrm = str_replace(' ', '', $in_gallery);
     /* Url */
-    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=974d84d5c54c0d30e46e31aee0df863f&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1';
+    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2577250b047535e7b6bb994febaab53&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1';
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents);
