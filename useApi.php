@@ -1,6 +1,7 @@
 <?php
 ini_set("allow_url_fopen", 1);
-$results = $farm = $server = $id = $secret = $total = $urlArray = []; /* Instanciation de plusieurs tableaux en une ligne */
+$results = $farm = $server = $id = $secret = $total = []; /* Instanciation de plusieurs tableaux en une ligne */
+$url = "";
 $key = 0;
 $min_upload = "";
 $max_upload = "";
@@ -47,22 +48,20 @@ if (isset($_POST['keyword'])) {
     /* Vérification si le champ est bien rempli et si c'est un objet */
     /*if (!empty($obj->photos->photo[$key]) && is_object($obj->photos->photo[$key])) {
         $results["total"] = $obj->photos->total;*/
-         foreach ($obj as $item) {
-            $farmInt = $item->photos->photo[0]->farm;
-            $serverStr = $item->photo->server;
-            $idStr = $item->photo->id;
-            $secretStr = $item->photo->secret;
+         foreach ($obj["photos"]["photo"] as $item) {
+            $farmInt = $item['farm'];
+            $serverStr = $item['server'];
+            $idStr = $item['id'];
+            $secretStr = $item['secret'];
             /* Concaténation du lien */
-            $urlArray[] = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
-            $results[$key]["url"] = $urlArray;
+            $url = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
+            $results["url"] = $url;
 
             /* Affichage des images */
-            echo "<img src='".$urlArray[0]."' />";
-
-            /* Réinstanciation du tableau pour éviter les répétitions */
-            $urlArray = [];
-            $key++;
-            var_dump($farmInt);
+            echo "<img src='".$url."' />";
+            
+            //var_dump($farmInt);
+            //var_dump($results);
         }
     /*}else {
         echo "Aucune correspondance.";
