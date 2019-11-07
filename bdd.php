@@ -4,10 +4,27 @@ require 'vendor/autoload.php';
 
 $client = new MongoDB\Client("mongodb://localhost:27017");
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-$db = new MongoDB\Database($manager,"flickr");
-$collection = new MongoDB\Collection($manager,$db,"photos");
-$document = new MongoDB($manager,$collection,$keyword);
-$collection = $client->flickr->photos;
+
+
+$dbExist = db.getMongo().getDBNames().indexOf("flickr");
+if ($dbExist == -1){
+    $db = new MongoDB\Database($manager,"flickr");
+}else{
+    $db = $client->flickr;
+}
+
+$collections = $db->listCollections();
+$collectionNames = [];
+foreach ($collections as $collection) {
+    $collectionNames[] = $collection->getName();
+}
+$exists = in_array($keyword, $collectionNames);
+if ($exists == True) {
+    $collection = $client->flickr->$keyword;
+}else {
+    $collection = new MongoDB\Collection($manager,$db,$keyword);
+}
+$document = new MongoDB($manager,$collection,"");
 
 $result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
 
