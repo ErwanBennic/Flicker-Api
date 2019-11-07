@@ -24,7 +24,7 @@ if ( isset( $_POST['keyword'])) {
     /* Vérification si le champ est bien rempli et si c'est un objet */
     if (!empty($obj->photos->photo[$key]) && is_object($obj->photos->photo[$key])) {
         $results["total"] = $obj->photos->total;
-        while ($key < 50) {
+        while ($key < 100) {
             $results[$key]["farm"] = $obj->photos->photo[$key]->farm;
             $results[$key]["server"] = $obj->photos->photo[$key]->server;
             $results[$key]["id"] = $obj->photos->photo[$key]->id;
@@ -37,6 +37,8 @@ if ( isset( $_POST['keyword'])) {
             /* Concaténation du lien */
             $urlArray[] = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
             $results[$key]["url"] = $urlArray;
+            /* Affichage des images */
+            echo "<img src='".$urlArray[0]."' />";
             /* Réinstanciation du tableau pour éviter les répétitions */
             $urlArray = [];
             $key++;
