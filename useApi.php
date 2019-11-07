@@ -4,12 +4,34 @@ $results = $farm = $server = $id = $secret = $total = $urlArray = []; /* Instanc
 $key = 0;
 $min_upload = "";
 $max_upload = "";
-$safe_search = null;
-$media = "";
+$safe_search = 0;
+$media = "all";
 $keyword = "";
-$in_gallery = "";
+$in_gallery = "false";
 
-if ( isset( $_POST['keyword'])) {
+if (isset($_POST['keyword'])) {
+    if (isset($_POST['galery'])) {
+        $in_gallery = $_POST['galery'];
+    }
+    if (isset($_POST['dateStart'])) {
+        $min_upload = $_POST['dateStart'];
+    }
+    if (isset($_POST['dateEnd'])) {
+        $max_upload = $_POST['dateEnd'];
+    }
+    if (isset($_POST['search'])) {
+        $safe_search = $_POST['search'];
+    }
+    if (isset($_POST['photos'])) {
+        $media = $_POST['photos'];
+    }
+    if (isset($_POST['videos'])) {
+        $media = $_POST['videos'];
+    }
+    if ((isset($_POST['photos'])) && (isset($_POST['videos']))) {
+        $media = "all";
+    }
+
     $keyword = $_POST['keyword'];
     echo "Recherche pour \"$keyword\".";
     echo "<br>";
@@ -20,32 +42,31 @@ if ( isset( $_POST['keyword'])) {
     $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2577250b047535e7b6bb994febaab53&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1';
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
-    $obj = json_decode($contents);
+    $obj = json_decode($contents, true);
+
     /* Vérification si le champ est bien rempli et si c'est un objet */
-    if (!empty($obj->photos->photo[$key]) && is_object($obj->photos->photo[$key])) {
-        $results["total"] = $obj->photos->total;
-        while ($key < 100) {
-            $results[$key]["farm"] = $obj->photos->photo[$key]->farm;
-            $results[$key]["server"] = $obj->photos->photo[$key]->server;
-            $results[$key]["id"] = $obj->photos->photo[$key]->id;
-            $results[$key]["secret"] = $obj->photos->photo[$key]->secret;
-            /* Recuperation des valeurs obligatoire */
-            $farmInt = $results[$key]["farm"];
-            $serverStr = $results[$key]["server"];
-            $idStr = $results[$key]["id"];
-            $secretStr = $results[$key]["secret"];
+    /*if (!empty($obj->photos->photo[$key]) && is_object($obj->photos->photo[$key])) {
+        $results["total"] = $obj->photos->total;*/
+         foreach ($obj as $item) {
+            $farmInt = $item->photos->photo[0]->farm;
+            $serverStr = $item->photo->server;
+            $idStr = $item->photo->id;
+            $secretStr = $item->photo->secret;
             /* Concaténation du lien */
             $urlArray[] = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
             $results[$key]["url"] = $urlArray;
+
             /* Affichage des images */
             echo "<img src='".$urlArray[0]."' />";
+
             /* Réinstanciation du tableau pour éviter les répétitions */
             $urlArray = [];
             $key++;
+            var_dump($farmInt);
         }
-    }else {
+    /*}else {
         echo "Aucune correspondance.";
-    }
+    }*/
 }
-var_dump($results);
+
 ?>
