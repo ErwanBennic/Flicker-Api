@@ -29,3 +29,5 @@ $document = new MongoDB($manager,$collection,"");
 $result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
 
 echo "Inserted with Object ID '{$result->getInsertedIid()}'";
+
+?>
