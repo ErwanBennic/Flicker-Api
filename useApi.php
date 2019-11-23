@@ -1,3 +1,9 @@
+<head>
+    <link href="assets/css/flicker-search.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Results Flicker</title>
+</head>
 <?php
 ini_set("allow_url_fopen", 1);
 $results = $farm = $server = $id = $secret = $total = []; /* Instanciation de plusieurs tableaux */
@@ -30,9 +36,14 @@ if (isset($_POST['keyword'])) {
     }
 
     $keyword = $_POST['keyword'];
+
+    /* Html temporaire */
+    echo "<div class='container'>";
+    echo "<div class='row pt-4'>";
     echo "<h1>Recherche pour \"$keyword\".</h1>";
+    echo "</div>";
     echo "<br>";
-    
+    echo "<div class='row results'>";
     /* Echappement des espaces pour éviter les erreurs php lors de la requête  */
     $keywordTrm = str_replace(' ', '%20', $keyword);
     $in_galleryTrm = str_replace(' ', '%20', $in_gallery);
@@ -49,16 +60,18 @@ if (isset($_POST['keyword'])) {
         $serverStr = $item['server'];
         $idStr = $item['id'];
         $secretStr = $item['secret'];
+
         /* Concaténation du lien */
         $url = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
         $results["url"] = $url;
 
         /* Affichage des images */
-        echo "<img src='".$url."' />";
+        echo "<img class='image-size' src='".$url."' />";
 
-        //var_dump($farmInt);
-        //var_dump($results);
+        /*var_dump($results);*/
     }
+        echo "</div>";
+     echo "</div>";
 }
 
 ?>
