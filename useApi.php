@@ -68,7 +68,7 @@ if (isset($_POST['keyword'])) {
         /* Affichage des images */
         echo "<img class='image-size' src='".$url."' />";
 
-        /*var_dump($results);*/
+        /*var_dump($results);*/ // Résultats (liens) à insérer dans mongodb
     }
         echo "</div>";
      echo "</div>";
