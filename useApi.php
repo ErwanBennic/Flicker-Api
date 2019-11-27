@@ -16,12 +16,12 @@ $in_gallery = "false";
 $client = new MongoDB\Client("mongodb://localhost:27017");
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
-$dbExist = db.getMongo().getDBNames().indexOf("flickr");
-if ($dbExist == -1){
+//$dbExist = $manager.getMongo().getDBNames().indexOf("flickr");
+//if ($dbExist == -1){
     $db = new MongoDB\Database($manager,"flickr");
-}else{
-    $db = $client->flickr;
-}
+//}else{
+     $db = $client->flickr;
+//}
 
 $collections = $db->listCollections();
 $collectionNames = [];
@@ -29,10 +29,10 @@ foreach ($collections as $collection) {
     $collectionNames[] = $collection->getName();
 }
 $exists = in_array($keyword, $collectionNames);
-if ($exists == True) {
-    $collection = $client->flickr->$keyword;
+if ($exists) {
+    $collection = $db->$keyword;
 }else {
-    $collection = new MongoDB\Collection($manager,$db,$keyword);
+    $collection =$db->createCollection($keyword);
 }
 
 
@@ -90,7 +90,7 @@ if (isset($_POST['keyword'])) {
             /* Concaténation du lien */
             $url = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
             $results["url"] = $url;
-             $insertOneResult = $collection->insertOne( [ 'FarmInt' => $farmInt, 'serverStr' => $serverStr, 'idStr' => $idStr, 'secretStr' => $secretStr, ] );
+             $insertOneResult = $collection->insertOne( [ 'url' => $url ] );
             /* Affichage des images */
             echo "<img src='".$url."' />";
 
@@ -101,14 +101,15 @@ if (isset($_POST['keyword'])) {
         echo "Aucune correspondance.";
     }*/
     printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
+
 }
 
         /* Affichage des images */
         echo "<img class='image-size' src='".$url."' />";
 
         /*var_dump($results);*/ // Résultats (liens) à insérer dans mongodb
-    }
+
         echo "</div>";
      echo "</div>";
-}
+
 ?>
