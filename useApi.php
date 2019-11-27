@@ -49,7 +49,21 @@ if (isset($_POST['keyword'])) {
     //}
 
 
-
+    $collections = $db->listCollections();
+    $collectionNames = [];
+    foreach ($collections as $collection) {
+        $collectionNames[] = $collection->getName();
+    }
+    $exists = in_array($keyword, $collectionNames);
+    if ($exists) {
+        $collection = $db->$keyword;
+        $collection = $collection->drop();
+        $collection =  $db->createCollection($keyword);
+        $collection = $db->$keyword;
+    }else {
+        $collection =  $db->createCollection($keyword);
+        $collection = $db->$keyword;
+    }
     /* Html temporaire */
     echo "<h1>Recherche pour \"$keyword\".</h1>";
 
@@ -66,21 +80,7 @@ if (isset($_POST['keyword'])) {
     /* Vérification si le champ est bien rempli et si c'est un objet */
 
     //if (isset($obj->photos->photo[$key]) || is_object($obj->photos->photo[$key])) {
-        $collections = $db->listCollections();
-        $collectionNames = [];
-        foreach ($collections as $collection) {
-            $collectionNames[] = $collection->getName();
-        }
-        $exists = in_array($keyword, $collectionNames);
-        if ($exists) {
-            $collection = $db->$keyword;
-            $collection = $collection->drop();
-            $collection =  $db->createCollection($keyword);
-            $collection = $db->$keyword;
-        }else {
-            $collection =  $db->createCollection($keyword);
-            $collection = $db->$keyword;
-        }
+
 
 
          foreach ($obj["photos"]["photo"] as $item) {
@@ -94,11 +94,24 @@ if (isset($_POST['keyword'])) {
             /* insertion dans la base de donnée */
              $insertOneResult = $collection->insertOne( [ 'url' => $url ] );
             /* Affichage des images */
-            echo "<img src='".$url."' />";
+           }
+            $s = $collection->find();
+            $a = json_decode($s, true);
+
+            foreach ($a as $url ){
+                var_dump($a);
+                foreach($url as $b){
+                    var_dump($b);
+                    echo "<img src='".$b."' />";
+                }
+
+            }
+
+
 
             //var_dump($farmInt);
             //var_dump($results);
-        }
+
 //    }else {
 //        echo "Aucune correspondance.";
 //    }
