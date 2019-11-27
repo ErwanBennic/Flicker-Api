@@ -8,10 +8,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
+    </include_path>
   </component>
   <component name="ProjectId" id="1TChbEmLUAPCCpiovZSYxc9bi42" />
   <component name="PropertiesComponent">
@@ -19,6 +26,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flicker-Api\assets\images" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -43,6 +55,11 @@
       <option name="presentableId" value="Default" />
       <updated>1572970053248</updated>
       <workItem from="1572970054409" duration="288000" />
+      <workItem from="1573118142283" duration="489000" />
+      <workItem from="1573130715334" duration="13584000" />
+      <workItem from="1574693444843" duration="1421000" />
+      <workItem from="1574760525754" duration="3000" />
+      <workItem from="1574841295082" duration="1989000" />
     </task>
     <servers />
   </component>

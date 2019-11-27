@@ -5,3 +5,14 @@ body {
 .flickr-logo {
     width: 40%;
 }
+
+.image-size {
+    width: 25%;
+    padding: 10px;
+}
+
+.results {
+    border: 2px solid;
+    border-radius: 4px;
+    justify-content: center;
+}

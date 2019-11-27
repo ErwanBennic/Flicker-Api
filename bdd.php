@@ -32,5 +32,7 @@ $insertOneResult = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' =
 
 printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
 
-var_dump($insertOneResult->getInsertedId());
+
+echo "Inserted with Object ID '{$result->getInsertedIid()}'";
+
 ?>
