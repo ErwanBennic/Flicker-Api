@@ -13,29 +13,6 @@ $key = $safe_search = 0;
 $media = "all";
 $in_gallery = "false";
 
-$client = new MongoDB\Client("mongodb://localhost:27017");
-$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-
-//$dbExist = $manager.getMongo().getDBNames().indexOf("flickr");
-//if ($dbExist == -1){
-    $db = new MongoDB\Database($manager,"flickr");
-//}else{
-     $db = $client->flickr;
-//}
-
-$collections = $db->listCollections();
-$collectionNames = [];
-foreach ($collections as $collection) {
-    $collectionNames[] = $collection->getName();
-}
-$exists = in_array($keyword, $collectionNames);
-if ($exists) {
-    $collection = $db->$keyword;
-}else {
-    $collection =$db->createCollection($keyword);
-}
-
-
 if (isset($_POST['keyword'])) {
     if (isset($_POST['galery'])) {
         $in_gallery = $_POST['galery'];
@@ -61,13 +38,21 @@ if (isset($_POST['keyword'])) {
 
     $keyword = $_POST['keyword'];
 
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+
+    //$dbExist = $manager.getMongo().getDBNames().indexOf("flickr");
+    //if ($dbExist == -1){
+        //$db = new MongoDB\Database($manager,"flickr");
+    //}else{
+        $db = $client->flickr;
+    //}
+
+
+
     /* Html temporaire */
-    echo "<div class='container'>";
-    echo "<div class='row pt-4'>";
     echo "<h1>Recherche pour \"$keyword\".</h1>";
-    echo "</div>";
-    echo "<br>";
-    echo "<div class='row results'>";
+
     /* Echappement des espaces pour éviter les erreurs php lors de la requête  */
     $keywordTrm = str_replace(' ', '%20', $keyword);
     $in_galleryTrm = str_replace(' ', '%20', $in_gallery);
@@ -80,8 +65,21 @@ if (isset($_POST['keyword'])) {
 
     /* Vérification si le champ est bien rempli et si c'est un objet */
 
-    /*if (!empty($obj->photos->photo[$key]) && is_object($obj->photos->photo[$key])) {
-        $results["total"] = $obj->photos->total;*/
+    if (!empty($obj->photos->photo[$key]) || is_object($obj->photos->photo[$key])) {
+        $collections = $db->listCollections();
+        $collectionNames = [];
+        foreach ($collections as $collection) {
+            $collectionNames[] = $collection->getName();
+        }
+        $exists = in_array($keyword, $collectionNames);
+        if ($exists) {
+            $collection = $db->$keyword;
+        }else {
+            $collection =  $db->createCollection($keyword);
+            $collection = $db->$keyword;
+        }
+
+        $results["total"] = $obj->photos->total;
          foreach ($obj["photos"]["photo"] as $item) {
             $farmInt = $item['farm'];
             $serverStr = $item['server'];
@@ -97,19 +95,14 @@ if (isset($_POST['keyword'])) {
             //var_dump($farmInt);
             //var_dump($results);
         }
-    /*}else {
+    }else {
         echo "Aucune correspondance.";
-    }*/
-    printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
+    }
+
 
 }
 
         /* Affichage des images */
         echo "<img class='image-size' src='".$url."' />";
-
-        /*var_dump($results);*/ // Résultats (liens) à insérer dans mongodb
-
-        echo "</div>";
-     echo "</div>";
 
 ?>

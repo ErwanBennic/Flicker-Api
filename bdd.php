@@ -1,38 +1,34 @@
 <?php
+require 'vendor/autoload.php';
+$client = new MongoDB\Client("mongodb://localhost:27017");
+$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
-
-
-
-
-
-
-$dbExist = db.getMongo().getDBNames().indexOf("flickr");
-if ($dbExist == -1){
-    $db = new MongoDB\Database($manager,"flickr");
-}else{
-    $collection = $client->flickr;
-}
-
+//$dbExist = $manager.getMongo().getDBNames().indexOf("flickr");
+//if ($dbExist == -1){
+$db = new MongoDB\Database($manager,"flickr");
+//}else{
+$db = $client->flickr;
+//}
+$keyword = "sport";
 $collections = $db->listCollections();
 $collectionNames = [];
 foreach ($collections as $collection) {
     $collectionNames[] = $collection->getName();
 }
 $exists = in_array($keyword, $collectionNames);
-if ($exists == True) {
-    $collection = $client->flickr->$keyword;
+if ($exists) {
+    $collection = $db->$keyword;
 }else {
-    $collection = new MongoDB\Collection($manager,$db,$keyword);
+    $collection =$db->createCollection($keyword);
+    $collection =$db->$keyword;
 }
-$keyword = "45";
+
 //$collection = $db->createCollection( $keyword);
 //$document = new MongoDB($manager,$collection,"");
 
-$insertOneResult = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
+$insertOneResult = $collection->insertOne([ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ]);
 
 printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
 
-
-echo "Inserted with Object ID '{$result->getInsertedIid()}'";
 
 ?>
