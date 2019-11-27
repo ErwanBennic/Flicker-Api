@@ -65,7 +65,7 @@ if (isset($_POST['keyword'])) {
 
     /* Vérification si le champ est bien rempli et si c'est un objet */
 
-    if (!empty($obj->photos->photo[$key]) || is_object($obj->photos->photo[$key])) {
+    //if (isset($obj->photos->photo[$key]) || is_object($obj->photos->photo[$key])) {
         $collections = $db->listCollections();
         $collectionNames = [];
         foreach ($collections as $collection) {
@@ -74,12 +74,15 @@ if (isset($_POST['keyword'])) {
         $exists = in_array($keyword, $collectionNames);
         if ($exists) {
             $collection = $db->$keyword;
+            $collection = $collection->drop();
+            $collection =  $db->createCollection($keyword);
+            $collection = $db->$keyword;
         }else {
             $collection =  $db->createCollection($keyword);
             $collection = $db->$keyword;
         }
 
-        $results["total"] = $obj->photos->total;
+
          foreach ($obj["photos"]["photo"] as $item) {
             $farmInt = $item['farm'];
             $serverStr = $item['server'];
@@ -87,7 +90,8 @@ if (isset($_POST['keyword'])) {
             $secretStr = $item['secret'];
             /* Concaténation du lien */
             $url = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
-            $results["url"] = $url;
+
+            /* insertion dans la base de donnée */
              $insertOneResult = $collection->insertOne( [ 'url' => $url ] );
             /* Affichage des images */
             echo "<img src='".$url."' />";
@@ -95,9 +99,9 @@ if (isset($_POST['keyword'])) {
             //var_dump($farmInt);
             //var_dump($results);
         }
-    }else {
-        echo "Aucune correspondance.";
-    }
+//    }else {
+//        echo "Aucune correspondance.";
+//    }
 
 
 }
