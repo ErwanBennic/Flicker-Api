@@ -17,26 +17,19 @@
       <executable />
     </execution>
   </component>
-<<<<<<< Updated upstream
-  <component name="PhpWorkspaceProjectConfiguration">
-    <include_path>
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
-=======
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/bdd.php" root0="SKIP_INSPECTION" root1="SKIP_INSPECTION" />
-  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
       <path value="$PROJECT_DIR$/vendor/composer" />
->>>>>>> Stashed changes
+      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
     </include_path>
   </component>
   <component name="ProjectId" id="1TChbEmLUAPCCpiovZSYxc9bi42" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -81,18 +74,11 @@
       <option name="presentableId" value="Default" />
       <updated>1572970053248</updated>
       <workItem from="1572970054409" duration="288000" />
-<<<<<<< Updated upstream
       <workItem from="1573118142283" duration="489000" />
       <workItem from="1573130715334" duration="13584000" />
       <workItem from="1574693444843" duration="1421000" />
       <workItem from="1574760525754" duration="3000" />
       <workItem from="1574841295082" duration="1989000" />
-=======
-      <workItem from="1574520939049" duration="2134000" />
-      <workItem from="1574694863767" duration="744000" />
-      <workItem from="1574789638205" duration="4438000" />
-      <workItem from="1574842127167" duration="1794000" />
->>>>>>> Stashed changes
     </task>
     <servers />
   </component>
