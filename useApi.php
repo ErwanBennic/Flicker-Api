@@ -1,3 +1,4 @@
+
 <head>
     <link href="assets/css/flicker-search.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -8,7 +9,7 @@
 require 'vendor/autoload.php';
 ini_set("allow_url_fopen", 1);
 $results = $farm = $server = $id = $secret = $total = []; /* Instanciation de plusieurs tableaux */
-$url = $keyword = $min_upload = $max_upload = "";
+$url = $keyword = $min_upload = $max_upload = $title = "";
 $key = $safe_search = 0;
 $media = "all";
 $in_gallery = "false";
@@ -84,28 +85,32 @@ if (isset($_POST['keyword'])) {
 
 
          foreach ($obj["photos"]["photo"] as $item) {
+             //var_dump($item);
             $farmInt = $item['farm'];
             $serverStr = $item['server'];
             $idStr = $item['id'];
             $secretStr = $item['secret'];
+            $title = $item['title'];
             /* Concaténation du lien */
             $url = "https://farm$farmInt.staticflickr.com/$serverStr/{$idStr}_{$secretStr}.jpg";
 
             /* insertion dans la base de donnée */
-             $insertOneResult = $collection->insertOne( [ 'url' => $url ] );
+             $insertOneResult = $collection->insertOne( [ 'url' => $url, 'title'=> $title, 'infos'=> $item ] );
             /* Affichage des images */
+             //echo "<img class='image-size' src='".$url."' />";
            }
-            $s = $collection->find();
-            $a = json_decode($s, true);
+            $results = $collection->find();
+            $TRes = iterator_to_array($results);
 
-            foreach ($a as $url ){
-                var_dump($a);
-                foreach($url as $b){
-                    var_dump($b);
-                    echo "<img src='".$b."' />";
-                }
-
+            var_dump($TRes);
+            foreach ($TRes as $photo ) {
+                //var_dump($url);
+                //foreach ($url as $c) {
+                    //var_dump($c);
+                    echo "<a href='detail.html?phototitle=" . $title . "'><img src='" . $url . "' /></a>";
+                //}
             }
+
 
 
 
@@ -120,6 +125,6 @@ if (isset($_POST['keyword'])) {
 }
 
         /* Affichage des images */
-        echo "<img class='image-size' src='".$url."' />";
+        //echo "<img class='image-size' src='".$url."' />";
 
 ?>
