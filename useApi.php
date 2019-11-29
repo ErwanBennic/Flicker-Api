@@ -73,7 +73,7 @@ if (isset($_POST['keyword'])) {
     $in_galleryTrm = str_replace(' ', '%20', $in_gallery);
 
     /* Url */
-    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=03fcd9f31e9f53c06465ae89f019061e&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1';
+    $json = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=03fcd9f31e9f53c06465ae89f019061e&text='.$keywordTrm.'&min_upload_date='.$min_upload.'&max_upload_date='.$max_upload.'&safe_search='.$safe_search.'&media='.$media.'&in_gallery='.$in_galleryTrm.'&format=json&nojsoncallback=1&extras=url_o';
     $contents = file_get_contents($json);
     $contents = utf8_encode($contents);
     $obj = json_decode($contents, true);
@@ -100,16 +100,19 @@ if (isset($_POST['keyword'])) {
              //echo "<img class='image-size' src='".$url."' />";
            }
             $results = $collection->find();
-            $TRes = iterator_to_array($results);
+            $TRes = iterator_to_array($results, true);
 
-            var_dump($TRes);
-            foreach ($TRes as $photo ) {
-                //var_dump($url);
-                //foreach ($url as $c) {
-                    //var_dump($c);
-                    echo "<a href='detail.html?phototitle=" . $title . "'><img src='" . $url . "' /></a>";
-                //}
-            }
+            var_dump($TRes.'storage'['infos']);
+//            foreach ($TRes['infos'] as $photo ) {
+//                //var_dump($photo);
+//                //$photo = utf8_encode($photo);
+//                $c = json_decode($photo);
+//                var_dump($photo);
+//                foreach ($photo as $c) {
+//                    var_dump($c);
+//                    echo "<a href='detail.html'><img src='https://www.flickr.com/photos/".$c['owner']."/".$c['id']." /></a>";
+//                }
+//            }
 
 
 
