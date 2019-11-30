@@ -7,7 +7,7 @@ body {
 }
 
 .image-size {
-    width: 25%;
+    width: 24%;
     padding: 10px;
 }
 
@@ -15,4 +15,24 @@ body {
     border: 2px solid;
     border-radius: 4px;
     justify-content: center;
+}
+
+.title {
+    text-decoration: none;
+    color: black;
+}
+
+.title:hover, .title:visited, .title:link, .title:active {
+    text-decoration: none;
+    color: black;
+}
+
+.main-search {
+    -moz-box-shadow: 0 20px 40px 5px #999;
+    -webkit-box-shadow: 0 20px 40px 5px #999;
+    background-color: #e9ecef;
+}
+
+.jumbotron {
+    margin-bottom: 0px !important;
 }

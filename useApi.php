@@ -103,7 +103,7 @@ if (isset($_POST['keyword'])) {
              $insertOneResult = $collection->insertOne( [ 'url' => $url, 'title'=> $title, 'infos'=> $item ] );
 
             /* Affichage des images */
-            $image = "<a href='https://www.flickr.com/photos/".$owner."/".$id."'><img class='image-size' src='".$url."' /></a>";
+            $image = "<a href='https://www.flickr.com/photos/".$owner."/".$id."' target='_blank'><img class='image-size' src='".$url."' /></a>";
             array_push($images, $image);
            }
     }else {
@@ -111,16 +111,27 @@ if (isset($_POST['keyword'])) {
     }
 }
 ?>
-
-<div class="container">
-    <div class="row">
-        <h1>Recherche pour "<?php echo "$keyword" ?>"</h1>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 d-flex justify-content-center">
+                <a href="index.html"><img class="flickr-logo" src="assets/images/flicker-logo.png" alt="Flickr-logo"></a>
+            </div>
+            <div class="col-6">
+                <a href="index.html" class="title"><h1 class="display-4">Flickr Search API</h1></a>
+                <p class="lead">Recherche pour "<b><?php echo "$keyword" ?>"</b></p>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <?php
-        foreach ($images as $i) {
-            echo $i;
-        }
-        ?>
+</div>
+<div class="container main-search">
+    <div class="row justify-content-center">
+        <div class="col">
+            <?php foreach ($images as $singleImage): ?>
+
+                <?php echo $singleImage; ?>
+
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
